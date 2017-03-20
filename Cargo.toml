@@ -1,0 +1,8 @@
+[package]
+name = "k-means"
+version = "0.1.0"
+authors = ["Kornilios Kourtis <kornilios@gmail.com>"]
+
+[dependencies]
+rand = "0.3"
+timely = { git = "https://github.com/frankmcsherry/timely-dataflow.git" }
