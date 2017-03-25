@@ -30,14 +30,14 @@ pub fn gen_2d_random_normal(n: u32, m: (f64, f64), d: (f64, f64)) -> Vec<(f64,f6
 pub fn td_kmeans(centroids: Vec<(f64,f64)>) {
     let conf = timely::Configuration::Process(2);
     timely::execute(conf, move |g| {
-		let mut cent_i = g.scoped(move |scope| {
+        let mut cent_i = g.scoped(move |scope| {
 
             let index = scope.index();
             #[allow(unused_variables)]
             let peers = scope.peers();
 
             // input for centroids
-			let (cent_i, cent_s) = scope.new_input();
+            let (cent_i, cent_s) = scope.new_input();
 
             // state
             let mut points = Vec::new();
@@ -113,10 +113,10 @@ pub fn td_kmeans(centroids: Vec<(f64,f64)>) {
         });
 
         // initial centroids
-		for (c, i) in centroids.iter().zip(0..) {
-			cent_i.send((i,*c));
-		}
-		cent_i.advance_to(1);
+        for (c, i) in centroids.iter().zip(0..) {
+            cent_i.send((i,*c));
+        }
+        cent_i.advance_to(1);
 
     }).unwrap().join();
 }
